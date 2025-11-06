@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
+
+
+
+    <title>Document</title>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <aside class="fixed w-64 bg-blue-900 text-white flex flex-col h-screen">
+            <div class="px-6 py-4 text-lg font-semibold border-b border-blue-800">Admin Portal Bonaire App</div>
+            <nav>
+                <a href="" class="flex px-6 py-2 hover:bg-blue-800">Point of Interest</a>
+                <a href="" class="flex px-6 py-2 hover:bg-blue-800">Tours</a>
+                <a href="" class="flex px-6 py-2 hover:bg-blue-800">Users</a>
+                <a href="" class="flex px-6 py-2 hover:bg-blue-800">App Design</a>
+                <a href="" class="flex px-6 py-2 hover:bg-blue-800">Movies</a>
+            </nav>
+        </aside>
+        <div class="flex flex-col flex-1 ml-64">
+            <header class="flex justify-between px-6 py-4 bg-white border-b border-gray-200">
+                <div>
+                    <span class="text-gray-700 font-medium">Select Company:</span>
+                    <select class="px-2 py-1 rounded border border-gray-300">
+                        <option>Bonaire Cruisers</option>
+                        <option>Another Company</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <i style="font-size:24px" class="fa">&#xf2be;</i>
+                    <span class="font-semibold">Bonaire Cruisers</span>
+                    <!-- <img class="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name=Admin" alt="User" /> -->
+                </div>
+            </header>
+            <h1 class="px-8 py-6 text-2xl font-bold">Home - Points of Interest</h1>
+            <main class="ml-9 mt-2 bg-white h-screen">
+                <main class="p-6">
+                    <div class="flex justify-between">
+                        <div class="flex-3">
+                            <button class="bg-blue-900 text-white px-4 py-2 rounded-3xl" onclick="togglePOIForm()">+ Add
+                                POI</button>
+                            <select class="px-4 py-2 bg-white rounded-3xl border border-gray-300">
+                                <option>Category</option>
+                            </select>
+                            <select class="px-4 py-2 bg-white rounded-3xl border border-gray-300">
+                                <option>Sub-Category</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="bg-white text-blue-800 px-4 py-2 border border-blue-800 rounded-3xl"><i
+                                    class="fa fa-cloud-upload"></i> Upload</button>
+                            <button class="bg-white text-blue-800 px-4 py-2 border border-blue-800 rounded-3xl">Sample
+                                POI</button>
+                            <button class="bg-white text-blue-800 px-4 py-2 border border-blue-800 rounded-3xl">Download
+                                POI</button>
+                        </div>
+                    </div>
+                    <!-- POI Form -->
+                    <div id="poiForm" class="mt-6 hidden bg-white border border-gray-300 rounded-lg p-6 shadow">
+                        <h2 class="text-lg font-bold mb-4">Add Point of Interest</h2>
+                        <form>
+                            <div class="mb-4">
+                                <label class="block font-medium mb-1">Title</label>
+                                <input type="text" class="w-full border border-gray-300 rounded px-3 py-2"
+                                    placeholder="Enter title" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-medium mb-1">Category</label>
+                                <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                                    data-placeholder="Select Categories">
+                                    <option value="beach">Beach</option>
+                                    <option value="mountain">Mountain</option>
+                                    <option value="history">History</option>
+                                    <option value="hiking">Hiking</option>
+                                </select>
+                                <!-- <select multiple class="w-full border border-gray-300 rounded px-3 py-2">
+                                    <option value="" disabled selected>Select category</option>
+                                    <option value="beach">Beach</option>
+                                    <option value="mountain">Mountain</option>
+                                    <option value="history">History</option>
+                                    <option value="hiking">Hiking</option>
+                                </select> -->
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-medium mb-1">Subcategory</label>
+                                <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                                    data-placeholder="Select Subcategories">
+                                    <option value="beaches">Beaches</option>
+                                    <option value="forests">Forests</option>
+                                    <option value="historic-sites">Historic Sites</option>
+                                    <option value="parks">Parks</option>
+                                </select>
+                                <!-- <select multiple
+                                    class="w-full border border-gray-300 rounded px-3 py-2 bg-white">
+                                    <option value="" disabled selected>Select subcategory</option>
+                                    <option value="beaches">Beaches</option>
+                                    <option value="forests">Forests</option>
+                                    <option value="historic-sites">Historic Sites</option>
+                                    <option value="parks">Parks</option>
+                                </select> -->
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit"
+                                    class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800">Save</button>
+                                <button type="button" onclick="togglePOIForm()"
+                                    class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </main>
+                <main>
+                    <!-- <div class="p-4 flex justify-between">
+                        <div>
+                            <select class="px-2 py-1 text-size-lg bg-white rounded-3xl border border-gray-300">
+                                <option>10</option>
+                                <option>15</option>
+                                <option>20</option>
+                            </select>
+                            <span class="ml-2">Entries Per Page</span>
+                        </div>
+                        <div>
+                            <span class="mr-1">Search :</span>
+                            <input type="text" class="px-2 py-1 rounded-3xl border border-gray-300" />
+                        </div>
+                    </div> -->
+                    <div class="px-4 py-6">
+                        <table id="poiTable" class="w-full bg-white border border-gray-300">
+                            <!-- <thead>
+                                <tr>
+                                    <th class="p-3 border border-gray-300">Image</th>
+                                    <th class="p-3 border border-gray-300">Title</th>
+                                    <th class="p-3 border border-gray-300">Category</th>
+                                    <th class="p-3 border border-gray-300">Subcategory</th>
+                                    <th class="p-3 border border-gray-300">Active</th>
+                                    <th class="p-3 border border-gray-300">Featured</th>
+                                    <th class="p-3 border border-gray-300">Premium</th>
+                                    <th class="p-3 border border-gray-300">Clone</th>
+                                    <th class="p-3 border border-gray-300">Edit</th>
+                                </tr>
+                            </thead> -->
+
+                            <!-- <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Extn.</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead> -->
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <!-- <th>Description</th> -->
+                                    <th>Price</th>
+                                    <th>stock</th>
+                                    <th>Tag</th>
+                                    <th>Width</th>
+                                    <th>Height</th>
+                                    <th>Review Rating</th>
+                                    <th>Review Comment</th>
+                                    <th>Review Date</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+
+                            <!-- <tbody>
+                                <tr class="border-b border-gray-300 text-center align-middle">
+                                    <td class="p-3 border border-gray-300">Img</td>
+                                    <td class="p-3 border border-gray-300">1000 Steps</td>
+                                    <td class="p-3 border border-gray-300">Bonaire highlights</td>
+                                    <td class="p-3 border border-gray-300">Beaches</td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf205;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf24d;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf044;</i> <i class="fa fa-trash-o"
+                                            style="font-size:20px;color:red"></i>
+
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-300 text-center align-middle">
+                                    <td class="p-3 border border-gray-300">Img</td>
+                                    <td class="p-3 border border-gray-300">BONAIRE CRUISER</td>
+                                    <td class="p-3 border border-gray-300">Bonaire highlights</td>
+                                    <td class="p-3 border border-gray-300">Testing</td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf205;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf24d;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf044;</i> <i class="fa fa-trash-o"
+                                            style="font-size:20px;color:red"></i>
+
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-300 text-center align-middle">
+                                    <td class="p-3 border border-gray-300">Img</td>
+                                    <td class="p-3 border border-gray-300">Larense laan (ENG)</td>
+                                    <td class="p-3 border border-gray-300">Bonaire highlights</td>
+                                    <td class="p-3 border border-gray-300">History</td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf205;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf24d;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf044;</i> <i class="fa fa-trash-o"
+                                            style="font-size:20px;color:red"></i>
+
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-300 text-center align-middle">
+                                    <td class="p-3 border border-gray-300">Img</td>
+                                    <td class="p-3 border border-gray-300">RED SLAVE HUTS</td>
+                                    <td class="p-3 border border-gray-300">Bonaire highlights</td>
+                                    <td class="p-3 border border-gray-300">Testing</td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf205;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf24d;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf044;</i> <i class="fa fa-trash-o"
+                                            style="font-size:20px;color:red"></i>
+
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-300 text-center align-middle">
+                                    <td class="p-3 border border-gray-300">Img</td>
+                                    <td class="p-3 border border-gray-300">Rietsingel</td>
+                                    <td class="p-3 border border-gray-300">Bonaire highlights</td>
+                                    <td class="p-3 border border-gray-300">Beaches</td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf205;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:24px"
+                                            class="fa">&#xf204;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf24d;</i>
+                                    </td>
+                                    <td class="p-3 border border-gray-300"><i style="font-size:20px"
+                                            class="fa">&#xf044;</i> <i class="fa fa-trash-o"
+                                            style="font-size:20px;color:red"></i>
+
+                                    </td>
+                                </tr>
+                            </tbody> -->
+                        </table>
+                </main>
+            </main>
+        </div>
+        <script>
+            function togglePOIForm() {
+                document.getElementById('poiForm').classList.toggle('hidden');
+                //const form = document.getElementById('poiForm');
+                //const table = document.getElementById('poiTable');
+
+                //form.classList.toggle('hidden');
+
+                //if (form.classList.contains('hidden')) {
+                //table.classList.remove('hidden');
+                //} else {
+                //table.classList.add('hidden');
+                //}
+            }
+
+            document.getElementById('poiForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                alert('POI form submitted');
+
+                document.getElementById('poiForm').classList.add('hidden');
+                document.getElementById('poiTable').classList.remove('hidden');
+            });
+
+            $(document).ready(function () {
+                $('.js-example-basic-multiple').select2({ width: '100%' });
+                //$('#poiTable').DataTable();
+
+                let table = new DataTable('#poiTable', {
+                    //ajax: '../ajax/array.txt'
+                    ajax: {
+                        url: 'https://dummyjson.com/products',
+                        dataSrc: 'products'
+                    },
+                    columns: [
+                        { data: 'id' },
+                        { data: 'title' },
+                        //{ data: 'description' },
+                        { data: 'price' },
+                        {
+                            data: 'stock',
+                            render: data => data > 90 ? 'Full' : data
+                        },
+                        { data: 'tags.0' },
+                        { data: 'dimensions.width' },
+                        { data: 'dimensions.height' },
+                        { data: 'reviews.0.rating' },
+                        { data: 'reviews.1.comment' },
+                        { data: 'reviews.2.date' },
+                        {
+                            data: null,
+                            render: function () {
+                                return '<i class="fa fa-edit" style="font-size:24px;color:blue;cursor:pointer"></i>';
+                            }
+                        },
+                        {
+                            data: null,
+                            render: function () {
+                                return '<i class="fa fa-trash-o" style="font-size:24px;color:red;cursor:pointer"></i>';
+                            }
+                        }
+
+                    ],
+                    processing: true
+                });
+            });
+        </script>
+</body>
+
+</html>
